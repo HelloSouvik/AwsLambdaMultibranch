@@ -28,7 +28,7 @@ pipeline {
         }
         stage('Deliver for feature') {
             when {
-                branch 'feature/*'
+                branch '*/feature/*'
             }
             
             steps {
@@ -47,7 +47,7 @@ pipeline {
         }
         stage('Deploy for pre') {
             when {
-                branch 'release/*'
+                branch '*/release/*'
             }
             steps {
                 bat 'mvn clean install -Dmaven.test.failure.ignore=true'
@@ -59,6 +59,9 @@ pipeline {
             }
         }
         stage('Deploy - Production') {
+        	when {
+                branch '*/release/*'
+            }
    			steps {
         		echo 'Production - Deploying'
     		}
