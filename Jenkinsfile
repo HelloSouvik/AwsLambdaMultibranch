@@ -52,15 +52,16 @@ pipeline {
             steps {
                 bat 'mvn clean install -Dmaven.test.failure.ignore=true'
             }
+		}
+		stage('Sanity check') {
             steps {
-                input "want to deploy on int"
+                input "want to deploy on production"
             }
-            steps {
-                bat 'mvn clean install -Dmaven.test.failure.ignore=true'
-            }
-            steps {
-                input "want to deploy on prod"
-            }
+        }
+        stage('Deploy - Production') {
+   			steps {
+        		echo 'Production - Deploying'
+    		}
 		}
     }
     post {
