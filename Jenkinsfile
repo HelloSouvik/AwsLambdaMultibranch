@@ -42,8 +42,6 @@ pipeline {
                 echo "env.JENKINS_URL = ${env.JENKINS_URL}"
                 echo "env.BUILD_URL = ${env.BUILD_URL}"
                 echo "PATH = ${PATH}"
-                echo "AWS_ACCESS_KEY_ID = ${AWS_ACCESS_KEY_ID}"
-                echo "AWS_SECRET_ACCESS_KEY = ${AWS_SECRET_ACCESS_KEY}"
                 
                 bat 'mvn clean install -Dmaven.test.failure.ignore=true' 
             }
