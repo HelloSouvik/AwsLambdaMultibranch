@@ -6,6 +6,9 @@ pipeline {
         AWS_ACCESS_KEY_ID     = credentials('jenkins-aws-secret-key-id')
         AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')
     }
+    parameters {
+        string(name: 'Greeting', defaultValue: 'Hello', description: 'How should I greet the world?')
+    }
     tools { 
         maven 'Maven 3.5.3' 
         jdk 'jdk8' 
@@ -16,6 +19,7 @@ pipeline {
                 echo '***********************************************'
                 echo '*************** Env Var ************************'
                 echo '***********************************************'
+                echo "${params.Greeting} World!"
                 echo "env.PATH = ${env.PATH}"
                 echo "env.BRANCH_NAME = ${env.BRANCH_NAME}"
                 echo "env.CHANGE_ID = ${env.CHANGE_ID}"
