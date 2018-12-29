@@ -6,6 +6,7 @@ pipeline {
     }
     parameters {
         string(name: 'Greeting', defaultValue: 'Hello', description: 'How should I greet the world?')
+        string(name: 'AnoGreeting', defaultValue: 'AnoHello', description: 'AnoHow should I greet the world?')
     }
     tools { 
         maven 'Maven 3.5.3' 
@@ -18,6 +19,7 @@ pipeline {
                 echo '*************** Env Var ************************'
                 echo '***********************************************'
                 echo "${params.Greeting} World!"
+                echo "${params.AnoGreeting} World!"
                 echo "env.PATH = ${env.PATH}"
                 echo "env.BRANCH_NAME = ${env.BRANCH_NAME}"
                 echo "env.CHANGE_ID = ${env.CHANGE_ID}"
