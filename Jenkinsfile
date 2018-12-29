@@ -36,6 +36,7 @@ pipeline {
                 echo "env.JENKINS_URL = ${env.JENKINS_URL}"
                 echo "env.BUILD_URL = ${env.BUILD_URL}"
                 echo "PATH = ${PATH}"
+                echo "DISABLE_AUTH = ${DISABLE_AUTH}"
                 bat 'mvn clean install -Dmaven.test.failure.ignore=true' 
             }
             post {
