@@ -3,8 +3,6 @@ pipeline {
     environment {
         DISABLE_AUTH = 'true'
         DB_ENGINE    = 'sqlite'
-        AWS_ACCESS_KEY_ID     = credentials('jenkins-aws-secret-key-id')
-        AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')
     }
     parameters {
         string(name: 'Greeting', defaultValue: 'Hello', description: 'How should I greet the world?')
