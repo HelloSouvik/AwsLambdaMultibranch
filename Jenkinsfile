@@ -3,6 +3,8 @@ pipeline {
     environment {
         DISABLE_AUTH = 'true'
         DB_ENGINE    = 'sqlite'
+        AWS_ACCESS_KEY_ID     = credentials('jenkins-aws-secret-key-id')
+        AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')
     }
     tools { 
         maven 'Maven 3.5.3' 
@@ -36,7 +38,9 @@ pipeline {
                 echo "env.JENKINS_URL = ${env.JENKINS_URL}"
                 echo "env.BUILD_URL = ${env.BUILD_URL}"
                 echo "PATH = ${PATH}"
-                echo "DISABLE_AUTH = ${DISABLE_AUTH}"
+                echo "AWS_ACCESS_KEY_ID = ${AWS_ACCESS_KEY_ID}"
+                echo "AWS_SECRET_ACCESS_KEY = ${AWS_SECRET_ACCESS_KEY}"
+                
                 bat 'mvn clean install -Dmaven.test.failure.ignore=true' 
             }
             post {
