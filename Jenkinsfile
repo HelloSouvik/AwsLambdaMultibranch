@@ -35,7 +35,9 @@ pipeline {
             }
             
             steps {
-            	ENVIRONMENT_NAME = 'feature'
+            	script {
+                    ENVIRONMENT_NAME = 'feature'
+                }
                 echo 'deploying to feature ${ENVIRONMENT_NAME}'
             }
         }
@@ -44,8 +46,10 @@ pipeline {
                 branch 'develop'
             }
             
-            steps {            	
-            	ENVIRONMENT_NAME = 'dev'
+            steps {     
+            	script {       	
+            		ENVIRONMENT_NAME = 'dev'
+            	}
                 echo 'deploying to develop ${ENVIRONMENT_NAME}'
             }
         }
@@ -56,21 +60,27 @@ pipeline {
             stages {
             	stage('deploy-pre') {
             		steps {
-            			ENVIRONMENT_NAME = 'pre'
+            			script {
+            				ENVIRONMENT_NAME = 'pre'
+            			}
 		                echo 'deploying to pre ${ENVIRONMENT_NAME}'
 		            }
             	}
             	stage('deploy-int') {
             		steps {
             			input "want to deploy on int"
-            			ENVIRONMENT_NAME = 'int'
+            			script {
+            				ENVIRONMENT_NAME = 'int'
+            			}
 		                echo 'deploying to int ${ENVIRONMENT_NAME}'
 		            }
             	}
             	stage('deploy-prod') {
             		steps {
             			input "want to deploy on PROD"
-            			ENVIRONMENT_NAME = 'prod'
+            			script {
+            				ENVIRONMENT_NAME = 'prod'
+            			}
 		                echo 'deploying to prod ${ENVIRONMENT_NAME}'
 		            }
             	}
