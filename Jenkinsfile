@@ -3,6 +3,7 @@ pipeline {
     environment {
         DISABLE_AUTH = 'true'
         DB_ENGINE    = 'sqlite'
+        ENVIRONMENT_NAME = 'dev'
     }
     parameters {
         string(name: 'Greeting', defaultValue: 'Hello', description: 'How should I greet the world?')
@@ -34,7 +35,8 @@ pipeline {
             }
             
             steps {
-                 echo 'deploying to feature'
+            	ENVIRONMENT_NAME = 'feature'
+                echo 'deploying to feature ${ENVIRONMENT_NAME}'
             }
         }
         stage('deploy-develop') {
@@ -42,8 +44,9 @@ pipeline {
                 branch 'develop'
             }
             
-            steps {
-                 echo 'deploying to develop'
+            steps {            	
+            	ENVIRONMENT_NAME = 'dev'
+                echo 'deploying to develop ${ENVIRONMENT_NAME}'
             }
         }
         stage('preparing release branch') {
@@ -53,19 +56,22 @@ pipeline {
             stages {
             	stage('deploy-pre') {
             		steps {
-		                 echo 'deploying to pre'
+            			ENVIRONMENT_NAME = 'pre'
+		                echo 'deploying to pre ${ENVIRONMENT_NAME}'
 		            }
             	}
             	stage('deploy-int') {
             		steps {
             			input "want to deploy on int"
-		                echo 'deploying to pre'
+            			ENVIRONMENT_NAME = 'int'
+		                echo 'deploying to int ${ENVIRONMENT_NAME}'
 		            }
             	}
             	stage('deploy-prod') {
             		steps {
             			input "want to deploy on PROD"
-		                echo 'deploying to pre'
+            			ENVIRONMENT_NAME = 'prod'
+		                echo 'deploying to prod ${ENVIRONMENT_NAME}'
 		            }
             	}
             }
