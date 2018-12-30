@@ -48,7 +48,7 @@ pipeline {
         }
         stage('deploy-pre') {
             when {
-                branch '*/release/*'
+                branch '*release/*'
             }
             
             steps {
@@ -57,7 +57,7 @@ pipeline {
         }
         stage('deploy-int') {
             when {
-                branch '*/release/*'
+                branch '*release/*'
             }
             
             steps {
@@ -67,7 +67,7 @@ pipeline {
         }
         stage('deploy-PROD') {
             when {
-                branch '*/release/*'
+                branch '*release/*'
             }
             
             steps {            	
