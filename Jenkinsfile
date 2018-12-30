@@ -30,7 +30,7 @@ pipeline {
         }
         stage('deploy-feature') {
             when {
-                branch '*/feature/*'
+                branch '*feature/*'
             }
             
             steps {
