@@ -46,7 +46,7 @@ pipeline {
                  echo 'deploying to develop'
             }
         }
-        stage('deploy-release') {
+        stage('preparing release branch') {
             when {
                 branch '*release/*'
             }
