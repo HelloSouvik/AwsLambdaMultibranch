@@ -46,34 +46,30 @@ pipeline {
                  echo 'deploying to develop'
             }
         }
-        stage('deploy-pre') {
+        stage('deploy-release') {
             when {
                 branch '*release/*'
             }
+            stages {
+            	stage('deploy-pre') {
+            		steps {
+		                 echo 'deploying to pre'
+		            }
+            	}
+            	stage('deploy-int') {
+            		steps {
+            			input "want to deploy on int"
+		                echo 'deploying to pre'
+		            }
+            	}
+            	stage('deploy-prod') {
+            		steps {
+            			input "want to deploy on PROD"
+		                echo 'deploying to pre'
+		            }
+            	}
+            }
             
-            steps {
-                 echo 'deploying to pre'
-            }
-        }
-        stage('deploy-int') {
-            when {
-                branch '*release/*'
-            }
-            
-            steps {
-        		input "want to deploy on int"
-                echo 'deploying to INT'
-            }
-        }
-        stage('deploy-PROD') {
-            when {
-                branch '*release/*'
-            }
-            
-            steps {            	
-        		input "want to deploy on PROD"
-                echo 'deploying to Prod'
-            }
         }
     }
     post {
