@@ -38,7 +38,7 @@ pipeline {
             	script {
                     ENVIRONMENT_NAME = 'feature'
                 }
-                echo 'deploying to feature ${ENVIRONMENT_NAME}'
+                echo "deploying to feature ${ENVIRONMENT_NAME}"
             }
         }
         stage('deploy-develop') {
@@ -50,7 +50,7 @@ pipeline {
             	script {       	
             		ENVIRONMENT_NAME = 'dev'
             	}
-                echo 'deploying to develop ${ENVIRONMENT_NAME}'
+                echo "deploying to develop ${ENVIRONMENT_NAME}"
             }
         }
         stage('preparing release branch') {
@@ -63,7 +63,7 @@ pipeline {
             			script {
             				ENVIRONMENT_NAME = 'pre'
             			}
-		                echo 'deploying to pre ${ENVIRONMENT_NAME}'
+		                echo "deploying to pre ${ENVIRONMENT_NAME}"
 		            }
             	}
             	stage('deploy-int') {
@@ -72,7 +72,7 @@ pipeline {
             			script {
             				ENVIRONMENT_NAME = 'int'
             			}
-		                echo 'deploying to int ${ENVIRONMENT_NAME}'
+		                echo "deploying to int ${ENVIRONMENT_NAME}"
 		            }
             	}
             	stage('deploy-prod') {
@@ -81,7 +81,7 @@ pipeline {
             			script {
             				ENVIRONMENT_NAME = 'prod'
             			}
-		                echo 'deploying to prod ${ENVIRONMENT_NAME}'
+		                echo "deploying to prod ${ENVIRONMENT_NAME}"
 		            }
             	}
             }
