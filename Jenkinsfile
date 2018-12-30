@@ -56,26 +56,23 @@ pipeline {
             }
         }
         stage('deploy-int') {
-        	input "want to deploy on int"
             when {
                 branch '*/release/*'
             }
             
             steps {
-                 echo 'deploying to INT'
+        		input "want to deploy on int"
+                echo 'deploying to INT'
             }
         }
         stage('deploy-PROD') {
-        	input "want to deploy on PROD"
-            when {
-                branch '*/release/*'
-            }
             when {
                 branch '*/release/*'
             }
             
-            steps {
-                 echo 'deploying to Prod'
+            steps {            	
+        		input "want to deploy on PROD"
+                echo 'deploying to Prod'
             }
         }
     }
