@@ -4,15 +4,17 @@ pipeline {
         DISABLE_AUTH = 'true'
         DB_ENGINE    = 'sqlite'
     }
+    parameters {
+        string(name: 'Greeting', defaultValue: 'Hello', description: 'How should I greet the world?')
+        string(name: 'AnoGreeting', defaultValue: 'AnoHello', description: 'AnoHow should I greet the world?')
+    }
     tools { 
         maven 'Maven 3.5.3' 
         jdk 'jdk8' 
     }
     stages {
         stage('Build') {
-            steps {
-                echo 'Building bat set done-1'
-                echo "PATH = ${PATH}"
+            steps {                
                 bat 'mvn clean install -Dmaven.test.failure.ignore=true' 
             }
             post {
@@ -26,46 +28,53 @@ pipeline {
                 echo 'Testing'
             }
         }
-        stage('Deliver for feature') {
+        stage('deploy-feature') {
             when {
-                branch '*/feature/*'
+                branch '*feature/*'
             }
             
             steps {
-                 bat 'mvn clean install -Dmaven.test.failure.ignore=true'
+                 echo 'deploying to feature'
             }
         }
-        
-        stage('Deliver for development') {
+        stage('deploy-develop') {
             when {
                 branch 'develop'
             }
             
             steps {
-                 bat 'mvn clean install -Dmaven.test.failure.ignore=true'
+                 echo 'deploying to develop'
             }
         }
-        stage('Deploy for pre') {
+        stage('deploy-pre') {
             when {
                 branch '*/release/*'
             }
+            
             steps {
-                bat 'mvn clean install -Dmaven.test.failure.ignore=true'
-            }
-		}
-		stage('Sanity check') {
-            steps {
-                input "want to deploy on production"
+                 echo 'deploying to pre'
             }
         }
-        stage('Deploy - Production') {
-        	when {
+        stage('deploy-int') {
+            when {
                 branch '*/release/*'
             }
-   			steps {
-        		echo 'Production - Deploying'
-    		}
-		}
+            
+            steps {
+        		input "want to deploy on int"
+                echo 'deploying to INT'
+            }
+        }
+        stage('deploy-PROD') {
+            when {
+                branch '*/release/*'
+            }
+            
+            steps {            	
+        		input "want to deploy on PROD"
+                echo 'deploying to Prod'
+            }
+        }
     }
     post {
         always {
